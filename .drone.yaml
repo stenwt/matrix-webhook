@@ -1,0 +1,23 @@
+---
+kind: pipeline
+type: kubernetes
+name: build-matrix-webhook
+
+trigger:
+  event:
+    - push
+
+metadata:
+  namespace: drone
+
+steps:
+- name: kaniko
+  image: banzaicloud/drone-kaniko
+  settings:
+    registry: registry.home.sud0.com
+    repo: matrix-webhook
+    tags: latest
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
